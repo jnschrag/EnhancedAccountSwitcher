@@ -12,7 +12,7 @@ Plugin Name: Erweiterter Account Switcher für MyBB 1.6.*
 -> Verschiedene weitere Funktionen im ACP aktivierbar:
 	-> Accountwechsel-Auswahlbox zusätzlich links vom "Beitrag absenden" Button
 	-> Autor eines Beitrags nachträglich ändern (innerhalb der verbundenen Konten)
-	-> Anzeige der vebundenen Benutzerkonten im Profil
+	-> Anzeige der verbundenen Benutzerkonten im Profil
 	-> Anzeige im Header, wenn ein verbundener Benutzer eine PN erhalten hat
 	-> Abwesenheitsanzeige des Master-Kontos wird für alle verbundenen Benutzer übernommen
 Autor: doylecc (http://community.mybb.com/user-14694.html)
@@ -29,7 +29,7 @@ gegenüber Account Switcher Plugin...
 -Zusätzliche Einstellungen im ACP hinzugefügt (Konfiguration - Einstellungen - Erweiterter Account Switcher)
 -Funktion hinzugefügt: Accountwechsel-Auswahlbox zusätzlich links vom "Beitrag absenden" Button
 -Funktion hinzugefügt: Autor eines Beitrags nachträglich ändern (innerhalb der verbundenen Konten)
--Funktion hinzugefügt: Anzeige der vebundenen Benutzerkonten im Profil
+-Funktion hinzugefügt: Anzeige der verbundenen Benutzerkonten im Profil
 -Funktion hinzugefügt: Anzeige im Header, wenn ein verbundener Benutzer eine PN erhalten hat
 -Funktion hinzugefügt: Abwesenheitsanzeige des Master-Kontos wird für alle verbundenen Benutzer übernommen
 
