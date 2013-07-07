@@ -54,6 +54,7 @@ Enhanced Account Switcher Plugin for MyBB
 Enhanced Account Switcher plugin for MyBB
 
 Copyright (C) Harest, 2011
+
 Copyright (C) doylecc, 2012 onwards
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
