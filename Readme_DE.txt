@@ -38,15 +38,19 @@ gegenüber Account Switcher Plugin...
 Installation :
 ============================================
 1. Den Inhalt des Upload Ordners in das Foren-Hauptverzeichnis hochladen.
+   (Für weitere Sprachen sind die entsprechenden Sprachdateien ebenfalls hochzuladen.)
 2. Im Admin CP unter: "Konfiguration - Plugins" auf "Installieren & Aktivieren" hinter "Erweiterter Account Switcher (1.2)" klicken.
-3. Fertig
+3. Im Admin CP unter: "Benutzer & Gruppen - Gruppen" für die entsprechenden Gruppen unter "Benutzergruppe bearbeiten - Tab: Sonstiges" den hinzugefügten Punkt "Kann den Account Switcher benutzen?" aktivieren.
+4. Im Admin CP unter: "Konfiguration - Einstellungen - Erweiterter Account Switcher" Funktionen aktivieren/deaktivieren.
+5. Fertig.
 
 ============================================
 Update von Account Switcher Plugin 1.0 (von Harest)
 ============================================
 1. Den Inhalt des Upload Ordners in das Foren-Hauptverzeichnis hochladen.
-2. Im Admin CP unter: "Konfiguration - Plugins" auf "Deaktivieren" hinter "Erweiterter Account Switcher (1.2)" klicken.
-3. Anschließend Plugin wieder aktivieren.
+   (Für weitere Sprachen sind die entsprechenden Sprachdateien ebenfalls hochzuladen.)
+2. Im Admin CP unter: "Konfiguration - Plugins" auf "Deaktivieren" hinter "Erweiterter Account Switcher" klicken und anschließend auf "Aktivieren"
+3. Im Admin CP unter: "Konfiguration - Einstellungen - Erweiterter Account Switcher" Funktionen aktivieren/deaktivieren.
 4. Fertig
 
 ============================================

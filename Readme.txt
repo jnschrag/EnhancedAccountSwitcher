@@ -38,16 +38,20 @@ compared to the Account Switcher plugin...
 Installation :
 ============================================
 1. Upload the content of the Upload folder into your forum home directory.
+   For additional languages you have to upload new language files too.
 2. Go to your "Admin-CP: Configuration - Plugins" and click "Install & Activate" behind "Enhanced Account Switcher (1.2)"
-3. All done
+3. In Admin CP - Users & Groups - Groups" you first have to give permission for selected groups: "Edit Group - Miscellaneous", select "Can use Account Switcher?".
+4. In Admin CP - Configuration - Settings - Enhanced Account Switcher" you can activate/deactivate additional functions.
+5. All done.
 
 
 ============================================
 Update from Account Switcher Plugin 1.0 (by Harest):
 ============================================
 1. Upload the content of the "Upload" folder into your forum home directory and overwrite the existing plugin files.
-2. Go to your "Admin-CP: Configuration - Plugins" and click "Deactivate" behind "Enhanced Account Switcher (1.2)".
-3. Activate the plugin again.
+   For additional languages you have to upload new language files too.
+2. Go to your "AdminCP - Plugins", click "Deactivate" behind "Enhanced Account Switcher" and click "Activate" afterwards.
+3. In Admin CP - Configuration - Settings - Enhanced Account Switcher" activate/deactivate additional functions.
 4. All done
 
 

@@ -1,7 +1,7 @@
 EnhancedAccountSwitcher
 =======================
 
-Enhanced Account Switcher Plugin for MyBB
+Enhanced Account Switcher Plugin für MyBB
 
 
 
@@ -25,16 +25,22 @@ Enhanced Account Switcher Plugin for MyBB
 
 ### Installation
 1. Das Plugin in das Foren-Verzeichnis hochladen (dabei die Ordnerstruktur beachten.)
+   (Für weitere Sprachen sind die entsprechenden Sprachdateien ebenfalls hochzuladen.)
 2. Im Admin CP unter: "Konfiguration - Plugins" auf "Installieren & Aktivieren" hinter "Erweiterter Account Switcher" klicken.
-3. Fertig.
+3. Im Admin CP unter: "Benutzer & Gruppen - Gruppen" für die entsprechenden Gruppen unter "Benutzergruppe bearbeiten - Tab: Sonstiges" den hinzugefügten Punkt "Kann den Account Switcher benutzen?" aktivieren.
+4. Im Admin CP unter: "Konfiguration - Einstellungen - Erweiterter Account Switcher" Funktionen aktivieren/deaktivieren.
+5. Fertig.
 
 ### Update von Account Switcher Plugin 1.0 (von Harest)
 1. Das Plugin in das Foren-Verzeichnis hochladen (dabei die Ordnerstruktur beachten) und die vorhandenen Plugindateien überschreiben.
-2. In "Admin CP - Konfiguration - Plugins" auf "Deaktivieren" hinter "Erweiterter Account Switcher" klicken und anschließend auf "Aktivieren"
-3. Fertig
+   (Für weitere Sprachen sind die entsprechenden Sprachdateien ebenfalls hochzuladen.)
+2. Im Admin CP unter: "Konfiguration - Plugins" auf "Deaktivieren" hinter "Erweiterter Account Switcher" klicken und anschließend auf "Aktivieren"
+3. Im Admin CP unter: "Konfiguration - Einstellungen - Erweiterter Account Switcher" Funktionen aktivieren/deaktivieren.
+4. Fertig
 
 ### Screenshots
 * [Preview 1](http://s19.postimg.org/f4hk6kljn/eas_00.jpg)
+* [Preview 11](http://s18.postimg.org/cwyw1y555/eas_10.jpg)
 * [Preview 2](http://s19.postimg.org/6l2rmk2kz/eas_01.jpg)
 * [Preview 3](http://s19.postimg.org/4f8gs1z4j/eas_02.jpg)
 * [Preview 4](http://s19.postimg.org/5g8ph6g43/eas_03.jpg)
@@ -48,7 +54,9 @@ Enhanced Account Switcher Plugin for MyBB
 ### Lizenz
 Erweiterter Account Switcher plugin for MyBB
 
-Copyright (C) doylecc, 2012
+Copyright (C) Harest, 2011
+
+Copyright (C) doylecc, 2012-2013
 
 Dieses Programm ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
 
