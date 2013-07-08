@@ -60,6 +60,7 @@ $plugins->add_hook("admin_user_groups_edit", "accountswitcher_admingroups_edit")
 $plugins->add_hook("admin_user_groups_edit_commit", "accountswitcher_admingroups_commit");
 $plugins->add_hook("showthread_start", "accountswitcher_post");
 $plugins->add_hook("newreply_start", "accountswitcher_post");
+$plugins->add_hook("newthread_start", "accountswitcher_post");
 $plugins->add_hook("private_do_send_end", "accountswitcher_pm");
 $plugins->add_hook("private_read_end", "accountswitcher_pm");
 
@@ -338,15 +339,19 @@ function accountswitcher_activate()
 	require_once MYBB_ROOT."/inc/adminfunctions_templates.php";
 	find_replace_templatesets('header_welcomeblock_member', '#\<!--\sAccountSwitcher\s--\>(.+)\<!--\s/AccountSwitcher\s--\>#is', '', '', 0);
 	find_replace_templatesets('newreply', "#".preg_quote('{$as_post}&nbsp;')."#s", '', '', 0);
+	find_replace_templatesets('newthread', "#".preg_quote('{$as_post}&nbsp;')."#s", '', '', 0);
 	find_replace_templatesets('showthread_quickreply', "#".preg_quote('{$as_post}&nbsp;')."#s", '', '', 0);
 	find_replace_templatesets('newreply', "#".preg_quote('<a name="switch" id="switch"></a>')."#s", '', '', 0);
+	find_replace_templatesets('newthread', "#".preg_quote('<a name="switch" id="switch"></a>')."#s", '', '', 0);
 	find_replace_templatesets('showthread_', "#".preg_quote('<a name="switch" id="switch"></a>')."#s", '', '', 0);
 	find_replace_templatesets("header", "#".preg_quote('{$pm_switch_notice}')."#i", '', '', 0);
 
 	find_replace_templatesets('header_welcomeblock_member', '#{\$lang->welcome_pms_usage}#', '{\$lang->welcome_pms_usage}<!-- AccountSwitcher -->{$as_header}<!-- /AccountSwitcher -->');
 	find_replace_templatesets('newreply', "#".preg_quote('<input type="submit" class="button" name="submit"')."#s", '{$as_post}&nbsp;<input type="submit" class="button" name="submit"');
+	find_replace_templatesets('newthread', "#".preg_quote('<input type="submit" class="button" name="submit"')."#s", '{$as_post}&nbsp;<input type="submit" class="button" name="submit"');
 	find_replace_templatesets('showthread_quickreply', "#".preg_quote('<input type="submit" class="button" value="{$lang->post_reply}')."#s", '{$as_post}&nbsp;<input type="submit" class="button" value="{$lang->post_reply}');
 	find_replace_templatesets('newreply', "#".preg_quote('{$loginbox}')."#s", '<a name="switch" id="switch"></a>{$loginbox}');
+	find_replace_templatesets('newthread', "#".preg_quote('{$loginbox}')."#s", '<a name="switch" id="switch"></a>{$loginbox}');
 	find_replace_templatesets('showthread', "#".preg_quote('{$quickreply}')."#s", '<a name="switch" id="switch"></a>{$quickreply}');
 	find_replace_templatesets("header", "#".preg_quote('{$pm_notice}')."#i", '{$pm_notice} {$pm_switch_notice}');
 
@@ -473,8 +478,10 @@ function accountswitcher_uninstall()
 	require_once MYBB_ROOT."/inc/adminfunctions_templates.php";
 	find_replace_templatesets('header_welcomeblock_member', '#\<!--\sAccountSwitcher\s--\>(.+)\<!--\s/AccountSwitcher\s--\>#is', '', '', 0);
 	find_replace_templatesets('newreply', "#".preg_quote('{$as_post}&nbsp;')."#s", '', '', 0);
+	find_replace_templatesets('newthread', "#".preg_quote('{$as_post}&nbsp;')."#s", '', '', 0);
 	find_replace_templatesets('showthread_quickreply', "#".preg_quote('{$as_post}&nbsp;')."#s", '', '', 0);
 	find_replace_templatesets('newreply', "#".preg_quote('<a name="switch" id="switch"></a>')."#s", '', '', 0);
+	find_replace_templatesets('newthread', "#".preg_quote('<a name="switch" id="switch"></a>')."#s", '', '', 0);
 	find_replace_templatesets('showthread_', "#".preg_quote('<a name="switch" id="switch"></a>')."#s", '', '', 0);
 	find_replace_templatesets("header", "#".preg_quote('{$pm_switch_notice}')."#i", '', '', 0);
 
@@ -620,7 +627,7 @@ function accountswitcher_post()
 						}
 					}
 						$as_post = '<select name="fid" onchange="window.location=(\'member.php?action=login&amp;do=switch&amp;uid=\'+this.options[this.selectedIndex].value)">
-	<option value="#">'.$mybb->user['username'].'</option>
+	<option value="#">'.htmlspecialchars_uni($mybb->user['username']).'</option>
 	'.$as_post_userbit.'
 	</select>';
 				}
@@ -659,7 +666,7 @@ function accountswitcher_post()
 							}
 						}
 					$as_post = '<select name="fid" onchange="window.location=(\'member.php?action=login&amp;do=switch&amp;uid=\'+this.options[this.selectedIndex].value)">
-	<option value="#">'.$mybb->user['username'].'</option>
+	<option value="#">'.htmlspecialchars_uni($mybb->user['username']).'</option>
 	'.$as_post_userbit.'
 	</select>';
 					}
