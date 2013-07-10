@@ -626,7 +626,7 @@ function accountswitcher_post()
 							}
 						}
 					}
-						$as_post = '<select name="fid" onchange="window.location=(\'member.php?action=login&amp;do=switch&amp;uid=\'+this.options[this.selectedIndex].value)">
+						$as_post = '<select name="userswitch" onchange="window.location=(\'member.php?action=login&amp;do=switch&amp;uid=\'+this.options[this.selectedIndex].value)">
 	<option value="#">'.htmlspecialchars_uni($mybb->user['username']).'</option>
 	'.$as_post_userbit.'
 	</select>';
@@ -665,7 +665,7 @@ function accountswitcher_post()
 								";
 							}
 						}
-					$as_post = '<select name="fid" onchange="window.location=(\'member.php?action=login&amp;do=switch&amp;uid=\'+this.options[this.selectedIndex].value)">
+					$as_post = '<select name="userswitch" onchange="window.location=(\'member.php?action=login&amp;do=switch&amp;uid=\'+this.options[this.selectedIndex].value)">
 	<option value="#">'.htmlspecialchars_uni($mybb->user['username']).'</option>
 	'.$as_post_userbit.'
 	</select>';
@@ -708,6 +708,7 @@ function accountswitcher_switch()
 
 			//Get the current page
 			$redirect_url = htmlentities($_SERVER['HTTP_REFERER']);
+			$redirect_url = str_replace('&amp;processed=1', '', $redirect_url);
 			//Make the switch!
 			my_unsetcookie('mybbuser');
 			my_setcookie('mybbuser', (int)$user['uid'].'_'.htmlspecialchars_uni($user['loginkey']), null, true);
