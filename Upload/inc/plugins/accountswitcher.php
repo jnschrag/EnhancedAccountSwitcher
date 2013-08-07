@@ -25,12 +25,13 @@ if(!defined("IN_MYBB"))
 
 
 //Caching templates
-global $templatelist;
+global $templatelist, $templates, $db;
 if(isset($templatelist))
 {
 	$templatelist .= ',';
 }
-$templatelist .= 'as_header,global_pm_switch_alert';
+$templatelist .= 'as_header, global_pm_switch_alert';
+$templates->cache($db->escape_string($templatelist));
 
 if(my_strpos($_SERVER['PHP_SELF'], 'usercp.php'))
 {
@@ -526,6 +527,17 @@ function accountswitcher_header()
 		$count = 0;
 		$as_header_userbit = '';
 
+		// Get the return page
+		if ($mybb->input['action'] != 'login' && THIS_SCRIPT != "attachment.php")
+		{
+			session_start();
+			$_SESSION['page'] = htmlspecialchars_uni(basename($_SERVER['REQUEST_URI']));
+			if (THIS_SCRIPT == 'index.php')
+			{
+				$_SESSION['page'] = 'index.php';
+			}
+		}
+
 		//If there are users attached and current user can use the Enhanced Account Switcher...
 		if($mybb->usergroup['as_canswitch'] == "1")
 		{
@@ -706,8 +718,15 @@ function accountswitcher_switch()
 			//Check if user exists
 			if(!$user) error($lang->as_invaliduser);
 
-			//Get the current page
-			$redirect_url = htmlentities($_SERVER['HTTP_REFERER']);
+			//Get the last page for redirecting
+			if (!empty($_SESSION['page']))
+			{
+				$redirect_url = $mybb->settings['bburl'].'/'.$_SESSION['page'];
+			}
+			else
+			{
+				$redirect_url = $mybb->settings['bburl'].'/index.php';
+			}
 			$redirect_url = str_replace('&amp;processed=1', '', $redirect_url);
 			//Make the switch!
 			my_unsetcookie('mybbuser');
