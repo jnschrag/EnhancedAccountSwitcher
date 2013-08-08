@@ -527,15 +527,11 @@ function accountswitcher_header()
 		$count = 0;
 		$as_header_userbit = '';
 
-		// Get the return page
-		if ($mybb->input['action'] != 'login' && THIS_SCRIPT != "attachment.php")
+		//Get index.php for redirecting
+		if ($mybb->input['action'] != 'login')
 		{
 			session_start();
-			$_SESSION['page'] = htmlspecialchars_uni(basename($_SERVER['REQUEST_URI']));
-			if (THIS_SCRIPT == 'index.php')
-			{
-				$_SESSION['page'] = 'index.php';
-			}
+			$_SESSION['page'] = THIS_SCRIPT;
 		}
 
 		//If there are users attached and current user can use the Enhanced Account Switcher...
@@ -719,13 +715,19 @@ function accountswitcher_switch()
 			if(!$user) error($lang->as_invaliduser);
 
 			//Get the last page for redirecting
-			if (!empty($_SESSION['page']))
+			$ret_page = '';
+			$redirect_url = $mybb->settings['bburl'].'/index.php';
+			if($_SERVER['HTTP_REFERER'] && strpos($_SERVER['HTTP_REFERER'], "action=login") === false)
 			{
-				$redirect_url = $mybb->settings['bburl'].'/'.$_SESSION['page'];
-			}
-			else
-			{
-				$redirect_url = $mybb->settings['bburl'].'/index.php';
+				if (!empty($_SESSION['page']) && $_SESSION['page'] == 'index.php')
+				{
+					$ret_page = 'index.php';
+				}
+				else
+				{
+					$ret_page = htmlentities(basename($_SERVER['HTTP_REFERER']));
+				}
+				$redirect_url = $mybb->settings['bburl'].'/'.$ret_page;
 			}
 			$redirect_url = str_replace('&amp;processed=1', '', $redirect_url);
 			//Make the switch!
