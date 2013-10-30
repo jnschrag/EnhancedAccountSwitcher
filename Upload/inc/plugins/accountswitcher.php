@@ -1602,7 +1602,7 @@ function accountswitcher_postbit(&$post)
 							<td class="thead"><strong>'.$lang->aj_profile.'</strong></td>
 						</tr>
 						<tr>
-							<td class="trow1">
+							<td class="trow1" align="left">
 							<ul>
 							'.$as_postbit.'
 							</ul>
