@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 //###################################################################
 //#																	#
 //#				 Enhanced Account Switcher Admin Sprachdatei		#
@@ -23,5 +23,7 @@ $l['aj_profile_title'] = "Verbundene Accounts im Profil";
 $l['aj_profile_descr'] = "Soll im Profil eines Benutzers eine Liste mit seinen weiteren verbundenen Accounts angezeigt werden?";
 $l['aj_away_title'] = "Abwesenheitsstatus des Hauptaccounts allen verbundenen Accounts zuweisen";
 $l['aj_away_descr'] = "Sollen alle verbundenen Accounts den gleichen Abwesenheitsstatus bekommen, wenn der Status des Hauptaccounts geändert wird?";
+$l['aj_postbit_title'] = "Verbundene Accounts im Postbit";
+$l['aj_postbit_descr'] = "Soll im Postbit eines Benutzers eine Liste mit seinen weiteren verbundenen Accounts angezeigt werden?";
 
 ?>

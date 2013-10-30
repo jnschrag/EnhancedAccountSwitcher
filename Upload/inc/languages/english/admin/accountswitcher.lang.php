@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 //###################################################################
 //#																	#
 //#			Enhanced Account Switcher Admin  Language File			#
@@ -23,5 +23,7 @@ $l['aj_profile_title'] = "Attached accounts im profile";
 $l['aj_profile_descr'] = "Show a list of attached accounts in users profile?";
 $l['aj_away_title'] = "Away Status of the master account for all attached accounts";
 $l['aj_away_descr'] = "Give all attached accounts the same Away Status, when changing the status of the master account?";
+$l['aj_postbit_title'] = "Attached accounts in postbit";
+$l['aj_postbit_descr'] = "Show a list of attached accounts in postbit?";
 
 ?>

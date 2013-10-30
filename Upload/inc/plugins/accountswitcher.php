@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Enhanced Account Switcher for MyBB 1.6
  * Copyright (c) 2012-2013 doylecc
@@ -306,10 +306,21 @@ function accountswitcher_install()
 		"description" => $lang->aj_away_descr,
 		"optionscode" => "yesno",
 		"value" => 1,
-		"disporder" => 5,
+		"disporder" => 6,
 		"gid" => (int)$gid
 		);
 	$db->insert_query("settings", $account_jumper_5);
+
+	$account_jumper_6 = array(
+		"name" => "aj_postbit",
+		"title" => $lang->aj_postbit_title,
+		"description" => $lang->aj_postbit_descr,
+		"optionscode" => "yesno",
+		"value" => 1,
+		"disporder" => 5,
+		"gid" => (int)$gid
+		);
+	$db->insert_query("settings", $account_jumper_6);
 
 	//Refresh settings.php
 	rebuild_settings();
@@ -429,10 +440,21 @@ function accountswitcher_activate()
 			"description" => $lang->aj_away_descr,
 			"optionscode" => "yesno",
 			"value" => 1,
-			"disporder" => 5,
+			"disporder" => 6,
 			"gid" => (int)$gid
 			);
 		$db->insert_query("settings", $account_jumper_5);
+
+		$account_jumper_6 = array(
+			"name" => "aj_away",
+			"title" => $lang->aj_postbit_title,
+			"description" => $lang->aj_postbit_descr,
+			"optionscode" => "yesno",
+			"value" => 1,
+			"disporder" => 5,
+			"gid" => (int)$gid
+			);
+		$db->insert_query("settings", $account_jumper_6);
 	}
 
 	//Refresh settings.php
@@ -1443,6 +1465,123 @@ function accountswitcher_profile()
 							<td class="trow1">
 							<ul>
 							'.$as_profile_userbit.'
+							</ul>
+							</td>
+						</tr>
+					</table>';
+		}
+	}
+}
+
+//Show attached accounts in postbit
+$plugins->add_hook('postbit', 'accountswitcher_postbit');
+
+function accountswitcher_postbit()
+{
+	global $mybb, $cache, $db, $memprofile, $post, $theme, $lang;
+
+	//Get the attached users
+	if($memprofile['uid'] != "0" && $mybb->settings['aj_profile'] == 1)
+	{
+		//Get usergroup permissions
+		$permissions = user_permissions((int)$memprofile['uid']);
+
+		//Get the number of users attached to this account
+		$count = 0;
+		$as_postbit = '';
+
+		//If there are users attached and the current user can use the Enhanced Account Switcher...
+		if($permissions['as_canswitch'] == "1")
+		{
+			$accounts = $cache->read('accountswitcher');
+			if(is_array($accounts))
+			{
+				foreach ($accounts as $key => $account)
+				{
+					$attachedOne['uid'] = (int)$account['uid'];
+					$attachedOne['username'] = htmlspecialchars_uni($account['username']);
+					$attachedOne['as_uid'] = (int)$account['as_uid'];
+					if($attachedOne['as_uid'] == $memprofile['uid'])
+					{
+						$count++;
+						if($count > 0)
+						{
+							if($memprofile['uid'] == $mybb->user['uid'])
+							{
+								$as_postbit.= "<li><a href=\"".$mybb->settings['bburl']."/member.php?action=login&amp;do=switch&amp;uid=".$attachedOne['uid']."&amp;my_post_key=".$mybb->post_code."\">".$attachedOne['username']."</a></li>";
+							}
+							else
+							{
+								$as_postbit.= "<li><a href=\"".$mybb->settings['bburl']."/member.php?action=profile&amp;uid=".$attachedOne['uid']."\" alt=\"\">".$attachedOne['username']."</a></li>";
+							}
+						}
+					}
+				}
+			}
+		}
+
+		//If there are no users attached to current account but the current account is attached to another user
+		if($count == 0 && $memprofile['as_uid'] != '0')
+		{
+			//Get the master
+			$master = get_user((int)$memprofile['as_uid']);
+			//Get masters permissions
+			$permission = user_permissions((int)$master['uid']);
+
+			//If master has permission to use the Enhanced Account Switcher, get the userlist
+			if($permission['as_canswitch'] == "1")
+			{
+				//Create link to master
+				if($memprofile['uid'] == $mybb->user['uid'])
+				{
+					$as_postbit.= "<li><a href=\"".$mybb->settings['bburl']."/member.php?action=login&amp;do=switch&amp;uid=".(int)$master['uid']."&amp;my_post_key=".$mybb->post_code."\" alt=\"\" title=\"Master Account\"><strong>".htmlspecialchars_uni($master['username'])."</strong></a></li>";
+				}
+				else
+				{
+					$as_postbit.= "<li><a href=\"".$mybb->settings['bburl']."/member.php?action=profile&amp;uid=".(int)$master['uid']."\" alt=\"\" title=\"Master Account\"><strong>".htmlspecialchars_uni($master['username'])."</strong></a></li>";
+				}
+				//Get all users attached to master from the cache
+				$accounts = $cache->read('accountswitcher');
+				if(is_array($accounts))
+				{
+					foreach ($accounts as $key => $account)
+					{
+						$attachedOne['uid'] = (int)$account['uid'];
+						$attachedOne['username'] = htmlspecialchars_uni($account['username']);
+						$attachedOne['as_uid'] = (int)$account['as_uid'];
+						//Leave current user out
+						if($attachedOne['uid'] == $memprofile['uid'])
+						{
+							continue;
+						}
+						if($attachedOne['as_uid'] == $master['uid'])
+						{
+							if($memprofile['uid'] == $mybb->user['uid'])
+							{
+								$as_postbit.= "<li><a href=\"".$mybb->settings['bburl']."/member.php?action=login&amp;do=switch&amp;uid=".$attachedOne['uid']."&amp;my_post_key=".$mybb->post_code."\">".$attachedOne['username']."</a></li>";
+							}
+							else
+							{
+								$as_postbit.= "<li><a href=\"".$mybb->settings['bburl']."/member.php?action=profile&amp;uid=".$attachedOne['uid']."\" alt=\"\">".$attachedOne['username']."</a></li>";
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if($count > 0 || $count == 0 && $memprofile['as_uid'] != '0')
+		{
+			$lang->load('accountswitcher');
+			$post['userdetails'] .= '<br />
+					<table border="0" cellspacing="'.$theme['borderwidth'].'" cellpadding="'.$theme['tablespace'].'" class="tborder">
+						<tr>
+							<td class="thead"><strong>'.$lang->aj_profile.'</strong></td>
+						</tr>
+						<tr>
+							<td class="trow1">
+							<ul>
+							'.$as_postbit.'
 							</ul>
 							</td>
 						</tr>
