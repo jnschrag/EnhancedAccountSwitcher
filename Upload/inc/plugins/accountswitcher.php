@@ -440,18 +440,41 @@ function accountswitcher_activate()
 			"description" => $lang->aj_away_descr,
 			"optionscode" => "yesno",
 			"value" => 1,
-			"disporder" => 6,
+			"disporder" => 5,
+			"gid" => (int)$gid
+			);
+		$db->insert_query("settings", $account_jumper_5);
+	}
+
+	//If we are upgrading from 1.2...add the new settings
+	$query = $db->simple_select("settings", "*", "name='aj_postbit'");
+	$result = $db->num_rows($query);
+
+	if(!$result)
+	{
+		$query3 = $db->simple_select('settinggroups','gid','name="Enhanced Account Switcher"');
+		$gid = $db->fetch_field($query3, "gid");
+
+		$db->delete_query('settings',"name='aj_away'");
+
+		$account_jumper_5 = array(
+			"name" => "aj_postbit",
+			"title" => $lang->aj_postbit_title,
+			"description" => $lang->aj_postbit_descr,
+			"optionscode" => "yesno",
+			"value" => 1,
+			"disporder" => 5,
 			"gid" => (int)$gid
 			);
 		$db->insert_query("settings", $account_jumper_5);
 
 		$account_jumper_6 = array(
 			"name" => "aj_away",
-			"title" => $lang->aj_postbit_title,
-			"description" => $lang->aj_postbit_descr,
+			"title" => $lang->aj_away_title,
+			"description" => $lang->aj_away_descr,
 			"optionscode" => "yesno",
 			"value" => 1,
-			"disporder" => 5,
+			"disporder" => 6,
 			"gid" => (int)$gid
 			);
 		$db->insert_query("settings", $account_jumper_6);
