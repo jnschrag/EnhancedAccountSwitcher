@@ -77,8 +77,8 @@ function accountswitcher_info()
 		"name"			=> $lang->as_name,
 		"description"	=> $lang->as_desc,
 		"website"		=> "http://mybbplugins.de.vu",
-		"author"		=> "doylecc",
-		"version"		=> "1.2",
+		"author"		=> "doylecc, chainria",
+		"version"		=> "1.3",
 		"compatibility"	=> "16*",
 		"guid"			=> ""
 	);
@@ -1476,15 +1476,15 @@ function accountswitcher_profile()
 //Show attached accounts in postbit
 $plugins->add_hook('postbit', 'accountswitcher_postbit');
 
-function accountswitcher_postbit()
+function accountswitcher_postbit(&$post)
 {
-	global $mybb, $cache, $db, $memprofile, $post, $theme, $lang;
+	global $mybb, $cache, $db, $theme, $lang;
 
 	//Get the attached users
-	if($memprofile['uid'] != "0" && $mybb->settings['aj_profile'] == 1)
+	if($post['uid'] != "0" && $mybb->settings['aj_profile'] == 1)
 	{
 		//Get usergroup permissions
-		$permissions = user_permissions((int)$memprofile['uid']);
+		$permissions = user_permissions((int)$post['uid']);
 
 		//Get the number of users attached to this account
 		$count = 0;
@@ -1501,12 +1501,12 @@ function accountswitcher_postbit()
 					$attachedOne['uid'] = (int)$account['uid'];
 					$attachedOne['username'] = htmlspecialchars_uni($account['username']);
 					$attachedOne['as_uid'] = (int)$account['as_uid'];
-					if($attachedOne['as_uid'] == $memprofile['uid'])
+					if($attachedOne['as_uid'] == $post['uid'])
 					{
 						$count++;
 						if($count > 0)
 						{
-							if($memprofile['uid'] == $mybb->user['uid'])
+							if($post['uid'] == $mybb->user['uid'])
 							{
 								$as_postbit.= "<li><a href=\"".$mybb->settings['bburl']."/member.php?action=login&amp;do=switch&amp;uid=".$attachedOne['uid']."&amp;my_post_key=".$mybb->post_code."\">".$attachedOne['username']."</a></li>";
 							}
@@ -1521,10 +1521,10 @@ function accountswitcher_postbit()
 		}
 
 		//If there are no users attached to current account but the current account is attached to another user
-		if($count == 0 && $memprofile['as_uid'] != '0')
+		if($count == 0 && $post['as_uid'] != '0')
 		{
 			//Get the master
-			$master = get_user((int)$memprofile['as_uid']);
+			$master = get_user((int)$post['as_uid']);
 			//Get masters permissions
 			$permission = user_permissions((int)$master['uid']);
 
@@ -1532,7 +1532,7 @@ function accountswitcher_postbit()
 			if($permission['as_canswitch'] == "1")
 			{
 				//Create link to master
-				if($memprofile['uid'] == $mybb->user['uid'])
+				if($post['uid'] == $mybb->user['uid'])
 				{
 					$as_postbit.= "<li><a href=\"".$mybb->settings['bburl']."/member.php?action=login&amp;do=switch&amp;uid=".(int)$master['uid']."&amp;my_post_key=".$mybb->post_code."\" alt=\"\" title=\"Master Account\"><strong>".htmlspecialchars_uni($master['username'])."</strong></a></li>";
 				}
@@ -1550,11 +1550,11 @@ function accountswitcher_postbit()
 						$attachedOne['username'] = htmlspecialchars_uni($account['username']);
 						$attachedOne['as_uid'] = (int)$account['as_uid'];
 						//Leave current user out
-						if($attachedOne['uid'] == $memprofile['uid'])
+						if($attachedOne['uid'] == $post['uid'])
 						{
 							continue;
 						}
-						if($attachedOne['as_uid'] == $master['uid'])
+						if($attachedOne['as_uid'] == $post['uid'])
 						{
 							if($memprofile['uid'] == $mybb->user['uid'])
 							{
@@ -1570,10 +1570,10 @@ function accountswitcher_postbit()
 			}
 		}
 
-		if($count > 0 || $count == 0 && $memprofile['as_uid'] != '0')
+		if($count > 0 || $count == 0 && $post['as_uid'] != '0')
 		{
 			$lang->load('accountswitcher');
-			$post['userdetails'] .= '<br />
+			$post['user_details'] .= '<br />
 					<table border="0" cellspacing="'.$theme['borderwidth'].'" cellpadding="'.$theme['tablespace'].'" class="tborder">
 						<tr>
 							<td class="thead"><strong>'.$lang->aj_profile.'</strong></td>
