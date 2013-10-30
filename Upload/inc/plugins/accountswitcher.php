@@ -1481,7 +1481,7 @@ function accountswitcher_postbit(&$post)
 	global $mybb, $cache, $db, $theme, $lang;
 
 	//Get the attached users
-	if($post['uid'] != "0" && $mybb->settings['aj_profile'] == 1)
+	if($post['uid'] != "0" && $mybb->settings['aj_postbit'] == 1)
 	{
 		//Get usergroup permissions
 		$permissions = user_permissions((int)$post['uid']);
