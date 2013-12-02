@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 //###################################################################
 //#																	#
 //#				 Enhanced Account Switcher Admin Sprachdatei		#
