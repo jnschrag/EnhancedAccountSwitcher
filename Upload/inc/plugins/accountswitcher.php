@@ -1577,7 +1577,7 @@ function accountswitcher_postbit(&$post)
 						{
 							continue;
 						}
-						if($attachedOne['as_uid'] == $post['uid'])
+						if($attachedOne['as_uid'] == $post['as_uid'])
 						{
 							if($memprofile['uid'] == $mybb->user['uid'])
 							{
